@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<groupId>sample</groupId>
+	<artifactId>ejb-ear</artifactId>
+	<version>1.0</version>
+
+
+
+
+	<packaging>ear</packaging>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>sample</groupId>
+			<artifactId>ejb-ejb</artifactId>
+			<version>1.0</version>
+			<type>ejb</type>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>sample</groupId>
+			<artifactId>ejb-war</artifactId>
+			<version>1.0</version>
+			<type>war</type>
+			<scope>runtime</scope>
+		</dependency>
+	<!-- 
+		<dependency>
+			<groupId>jaxwsproj</groupId>
+			<artifactId>jaxwsproj</artifactId>
+			<version>0.1</version>
+			<type>war</type>
+			<scope>runtime</scope>
+		</dependency>
+ -->
+
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.10.1</version>
+				<configuration>
+					<version>7</version>
+					<fileNameMapping>no-version</fileNameMapping>
+					<generateApplicationXml>true</generateApplicationXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>net.wasdev.wlp.maven.plugins</groupId>
+				<artifactId>liberty-maven-plugin</artifactId>
+				<version>2.6.3</version>
+				<configuration>
+					<assemblyArtifact>
+						<groupId>com.ibm.websphere.appserver.runtime</groupId>
+						<artifactId>wlp-javaee7</artifactId>
+						<version>17.0.0.2</version>
+						<type>zip</type>
+					</assemblyArtifact>
+					<serverName>ejbServer</serverName>
+					<configFile>src/main/liberty/config/server.xml</configFile>
+					<appsDirectory>apps</appsDirectory>
+					<looseApplication>true</looseApplication>
+					<installAppPackages>project</installAppPackages>
+				</configuration>
+
+			</plugin>
+
+
+		</plugins>
+	</build>
+</project>
